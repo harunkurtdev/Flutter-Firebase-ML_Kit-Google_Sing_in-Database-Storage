@@ -2,6 +2,8 @@
 
 Bu projede Flutter ile Firebase Bağlanma işlemleri ve komutları örnek bir döküman haline getirilmeye çalışılacaktır...
 
+In this project, Flutter and Firebase Connection operations and commands will be tried to become a sample document ...
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
