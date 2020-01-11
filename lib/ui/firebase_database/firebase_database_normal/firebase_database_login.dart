@@ -99,7 +99,8 @@ class _Firebase_Database_Normal_UIState extends State<Firebase_Database_Normal_U
                           alignment: Alignment(0.85,0.0),
                         ),
                         onDismissed: (DismissDirection dismissDirection) async{
-                         
+                         //dismissible ile burada switch ile sağa sola yukarı aşağı gibi işlemler 
+                         //yaptırıyourz
                           switch(dismissDirection){
 
                             case DismissDirection.vertical:
@@ -186,6 +187,9 @@ class _Firebase_Database_Normal_UIState extends State<Firebase_Database_Normal_U
      );
   }
 
+  //öğrenci ekleye iki çeşit veri gönderiyoruz birisi güncelleme yani modeli göndererek
+  //güncelleme işlemi için
+  //modelsiz bir şekilde ise veriyi direkt eklemek için
   ogrenciekle({FirebaseDatabaseModel model}){
   if(model!=null){
     duzenleyici=true;
@@ -289,7 +293,12 @@ class _Firebase_Database_Normal_UIState extends State<Firebase_Database_Normal_U
             FlatButton(
              child: Text(duzenleyici?"Öğrenciyi düzenle":"Öğrenci ekleyin"),
              onPressed: duzenleyici?(){
-                
+                  //burada öğrenci düzenle true ise bu bölüme gir
+                  //database_apiye öğrenci güncelle ile modelimize ilk öncelikle
+                  /*
+                  controller dan gelen verileri atayıp daha sonradan ise model e kayıt edip 
+                  bunu database apiye göndermek
+                   */
                  _firebase_database_api.ogrenciguncelle(
                model: FirebaseDatabaseModel(
                  id: model.id,
@@ -307,6 +316,10 @@ class _Firebase_Database_Normal_UIState extends State<Firebase_Database_Normal_U
                 });
 
              } : () {
+               /*
+               eğer modelimiz boş ise bize düzenleyici false dönerek burada ki onpress i çalıştıracaktır
+               burada öğrencikaydet ede bir model göndererek database e kaydetme işlemi yapmış oluyoruz
+                */
                _firebase_database_api.ogrenciKaydet(
                model: FirebaseDatabaseModel(
                  isim: isimController.text

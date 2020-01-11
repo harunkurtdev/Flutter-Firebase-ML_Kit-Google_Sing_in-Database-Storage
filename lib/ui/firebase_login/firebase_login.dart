@@ -35,9 +35,10 @@ class _Firebase_LoginState extends State<Firebase_Login> {
 
     final statusText=Padding(
       padding: EdgeInsets.symmetric(vertical: 10.0),
-      child: Text(_user==null? "Giriş yapmaslısın": "${_user.displayName} Kullanıcı adı ile giriş yaptınız"),
+      child: Text(_user==null? "Giriş yapmaslısın": "${_user.displayName} Kullanıcı adı ile giriş yaptınız"),//eğer ki user boş ise giriş yapmalısın dşyor değil ise 
+      //username in ismini gösteriyort
     );
-
+    /**google sign kütüphanesinden aldıgımız referasn ile ugoogle bilgilerine göre işlem yapabiliyoruz */
     final googleLoginBtn=MaterialButton(
       color: Colors.blueAccent,
       child: Text("Google ile giriş yapınız"),
@@ -55,6 +56,8 @@ class _Firebase_LoginState extends State<Firebase_Login> {
       },
     );
 
+
+    /*ananonim olarak giriş yapabilmekteyiz */
     final anonymousLoginBtn=MaterialButton(
       color: Colors.blueAccent,
       child: Text("Anonim olarak giriş yapınız"),
@@ -71,6 +74,7 @@ class _Firebase_LoginState extends State<Firebase_Login> {
       },
     );
 
+      /**çıkış buotnumuz */
     final signOutBtn=MaterialButton(
       color: Colors.blueAccent,
       child: Text("çıkış yapınız"),
@@ -103,26 +107,29 @@ class _Firebase_LoginState extends State<Firebase_Login> {
       ),
     );
   }
-
+  //Future ile Firebase e google giriş i yapıyortuz
+  //ssha1 tanımlı olması gerekli aksi halde kaydetmez
   Future<FirebaseUser> _googleSignIn() async {
     debugPrint("ilk teyiz");
-
+    //eğer ki user null ise onun yerine Firebase auth u ekle
     final curUser =this._user?? await FirebaseAuth.instance.currentUser();
-    if(curUser!=null &&!curUser.isAnonymous){
-      return curUser;
+    if(curUser!=null &&!curUser.isAnonymous){ //eğer ki ananim giriş ve cursere user boş ise 
+      return curUser;//return et kullanıcıyı
     }
     debugPrint("içerideyiz");
-
+    //google girişi için
     final googleUser=await GoogleSignIn().signIn().then((value){
       debugPrint("$value hatası var");
     });
     debugPrint("2");
     final googleAuth=await googleUser.authentication;
     debugPrint("5");
+     
     final AuthCredential credential=GoogleAuthProvider.getCredential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken
+      accessToken: googleAuth.accessToken,//accsees token
+      idToken: googleAuth.idToken//id sini alıyoryz
     );
+    //ve bunu firewbase e kayıt ediyoruz
     debugPrint("3");
     final user=(await FirebaseAuth.instance.signInWithCredential(credential)).user;
     debugPrint("4");
@@ -136,6 +143,7 @@ class _Firebase_LoginState extends State<Firebase_Login> {
 
   }
 
+  //ananmoim girişe bakıyoruz ssha1 istemz
   Future<FirebaseUser> _anonymousSignIn() async {
     final curUser=this._user?? await FirebaseAuth.instance.currentUser();
 

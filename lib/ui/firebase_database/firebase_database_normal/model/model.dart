@@ -25,10 +25,10 @@ String sinif;
     sinif=snapshot.value["sinif"];
 
   }
-  
+  // get işlemi ile burada verilerimizi çekiyoruz
 
-get getisim=>isim;
 get getsoyisim=>soyisim;
 get getsinif=>sinif;
+get getisim=>isim;
 
 }

@@ -13,7 +13,7 @@ class FirebaseBilgi extends StatefulWidget {
 
 class _FirebaseBilgiState extends State<FirebaseBilgi> {
 
-
+//
 
   @override
   void initState() {
@@ -34,19 +34,19 @@ class _FirebaseBilgiState extends State<FirebaseBilgi> {
       ),
       body: ListView(
         children: <Widget>[
-          ListTile(title: Text(widget.user.uid.toString()),),
+          ListTile(title: Text(widget.user.uid.toString()),),//uid sini alır
           ListTile(title: Text(widget.user.displayName.toString()),),
           ListTile(title: Text(widget.user.isAnonymous.toString()),),
-          ListTile(title: Text(widget.user.providerId),),
-          ListTile(title: Text(widget.user.email),),
+          ListTile(title: Text(widget.user.providerId),),//id alır
+          ListTile(title: Text(widget.user.email),),//eameil alır
           ListTile(
               title: Text("Profil Fotoğrafı"),
-              trailing: widget.user.photoUrl!=null
+              trailing: widget.user.photoUrl!=null// eğer resim boş değil ise
                   ?CircleAvatar(
-                backgroundImage: NetworkImage(widget.user.photoUrl),
+                backgroundImage: NetworkImage(widget.user.photoUrl),//şahsın resmini alır
               ):
               CircleAvatar(
-                child: Text(widget.user.displayName[0]),
+                child: Text(widget.user.displayName[0]),//şahsın ilk harifini alır
               )
           ),
           ListTile(
